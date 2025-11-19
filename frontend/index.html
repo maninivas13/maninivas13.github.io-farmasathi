@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="supported-languages" content="en,hi,te,ta,bn,mr">
+  <title>FarmaSathi — AI Farmer Advisory System</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a2d9f9f8c1.js" crossorigin="anonymous"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">🌱 FarmaSathi</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#nav" aria-controls="nav" aria-expanded="false">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ask">Ask Query</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        
+        <div class="navbar-nav align-items-lg-center">
+          <!-- Language Selector -->
+          <div class="dropdown me-2">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <i class="fa fa-language"></i> <span id="currentLang">English</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item lang-option" href="#" data-lang="en">English</a></li>
+              <li><a class="dropdown-item lang-option" href="#" data-lang="hi">हिन्दी</a></li>
+              <li><a class="dropdown-item lang-option" href="#" data-lang="te">తెలుగు</a></li>
+              <li><a class="dropdown-item lang-option" href="#" data-lang="ta">தமிழ்</a></li>
+              <li><a class="dropdown-item lang-option" href="#" data-lang="bn">বাংলা</a></li>
+              <li><a class="dropdown-item lang-option" href="#" data-lang="mr">मराठी</a></li>
+            </ul>
+          </div>
+          
+          <button class="btn btn-primary" onclick="window.location.href='login.html'">
+            <i class="fa fa-user"></i> Login / Register
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="home" class="hero-section py-5 text-white">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-7">
+          <h1 class="display-5 fw-bold" data-translate="hero_title">AI-Based Farmer Query Support & Advisory</h1>
+          <p class="lead" data-translate="hero_subtitle">Get fast, region-aware, and easy-to-understand guidance on pests, weather, inputs and market trends.</p>
+          <a class="btn btn-success btn-lg me-2" href="#ask" data-translate="hero_ask_button">Ask a Query</a>
+          <a class="btn btn-outline-light btn-lg" href="dashboard.html" data-translate="hero_dashboard_button">Officer Dashboard</a>
+        </div>
+        <div class="col-md-5 text-center">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+               alt="Farmer in field" class="img-fluid rounded shadow-lg">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Services -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <h2 class="mb-4 text-center" data-translate="services_title">Our Services</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 service-card" onclick="openServiceChat('pest')" style="cursor:pointer;">
+            <div class="card-body text-center">
+              <div class="service-icon mb-3">
+                <i class="fas fa-bug fa-3x text-primary"></i>
+              </div>
+              <h5 class="card-title" data-translate="service1_title">Pest & Disease Help</h5>
+              <p class="card-text" data-translate="service1_desc">Upload a picture and get instant diagnosis and treatment recommendations.</p>
+              <button class="btn btn-outline-primary btn-sm mt-2">Ask AI Assistant</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 service-card" onclick="openServiceChat('weather')" style="cursor:pointer;">
+            <div class="card-body text-center">
+              <div class="service-icon mb-3">
+                <i class="fas fa-cloud-sun fa-3x text-info"></i>
+              </div>
+              <h5 class="card-title" data-translate="service2_title">Weather Alerts</h5>
+              <p class="card-text" data-translate="service2_desc">Receive timely weather alerts and crop-specific recommendations.</p>
+              <button class="btn btn-outline-info btn-sm mt-2">Get Weather Info</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 service-card" onclick="openServiceChat('market')" style="cursor:pointer;">
+            <div class="card-body text-center">
+              <div class="service-icon mb-3">
+                <i class="fas fa-chart-line fa-3x text-success"></i>
+              </div>
+              <h5 class="card-title" data-translate="service3_title">Market Trends</h5>
+              <p class="card-text" data-translate="service3_desc">Get market insights to help decide selling time and storage strategies.</p>
+              <button class="btn btn-outline-success btn-sm mt-2">Check Prices</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <script>
+      function openServiceChat(service) {
+        // Open chatbot
+        if (typeof aiChatbot !== 'undefined' && !aiChatbot.isOpen) {
+          aiChatbot.toggleChat();
+        }
+        
+        // Send pre-filled question after a delay
+        setTimeout(() => {
+          const input = document.getElementById('chat-input');
+          const sendBtn = document.getElementById('send-message-btn');
+          
+          if (service === 'pest') {
+            input.value = 'How do I control pests in my crops?';
+          } else if (service === 'weather') {
+            input.value = 'What is today\'s weather forecast?';
+          } else if (service === 'market') {
+            input.value = 'What are the current market prices?';
+          }
+          
+          // Auto-send the message
+          if (sendBtn) sendBtn.click();
+        }, 500);
+      }
+      </script>
+    </div>
+  </section>
+
+  <!-- Ask Query -->
+  <section id="ask" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="mb-3 text-center" data-translate="ask_title">Ask a Query</h2>
+      <p class="text-center mb-4" data-translate="ask_subtitle">Get expert advice from agricultural officers within 24 hours</p>
+
+      <div class="row">
+        <div class="col-lg-8">
+          <form id="queryForm" class="card p-4 shadow-sm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="farmerName" class="form-label" data-translate="form_name">Your name</label>
+                <input id="farmerName" class="form-control" required placeholder="e.g., Ram Kumar">
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="location" class="form-label" data-translate="form_location">Location (village/district)</label>
+                <input id="location" class="form-control" placeholder="e.g., Aurangabad, Bihar">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="cropType" class="form-label" data-translate="form_crop">Crop Type (Optional)</label>
+              <select id="cropType" class="form-select">
+                <option value="" data-translate="crop_select">Select Crop Type</option>
+                <option value="rice">Rice</option>
+                <option value="wheat">Wheat</option>
+                <option value="maize">Maize</option>
+                <option value="sugarcane">Sugarcane</option>
+                <option value="cotton">Cotton</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="fruits">Fruits</option>
+                <option value="pulses">Pulses</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="queryText" class="form-label" data-translate="form_query">Describe the problem or question</label>
+              <textarea id="queryText" class="form-control" rows="5" required 
+                        placeholder="Describe your issue in detail..."></textarea>
+              <div class="form-text" data-translate="form_query_help">Be specific about symptoms, duration, and any treatments you've tried.</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" data-translate="form_image">Attach image (optional)</label>
+              <input id="imageFile" type="file" accept="image/*" class="form-control">
+              <div class="form-text" data-translate="form_image_help">Clear images help in accurate diagnosis</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" data-translate="form_voice">Or record voice (optional)</label>
+              <div class="d-flex gap-2 align-items-center">
+                <button id="startRec" class="btn btn-outline-primary" type="button">
+                  <i class="fa fa-microphone"></i> <span data-translate="voice_start">Start Recording</span>
+                </button>
+                <button id="stopRec" class="btn btn-outline-danger" type="button" disabled>
+                  <i class="fa fa-stop"></i> <span data-translate="voice_stop">Stop</span>
+                </button>
+                <div id="recStatus" class="text-muted ms-2" data-translate="voice_status">No recording</div>
+                <audio id="audioPlayback" class="ms-2" controls style="display: none;"></audio>
+              </div>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-success px-4" type="submit" data-translate="form_submit">
+                <i class="fa fa-paper-plane"></i> Submit Query
+              </button>
+              <button id="saveDraft" class="btn btn-outline-secondary" type="button" data-translate="form_draft">
+                Save Draft
+              </button>
+              <button id="clearForm" class="btn btn-outline-danger" type="button" data-translate="form_clear">
+                Clear Form
+              </button>
+            </div>
+
+            <div id="formMsg" class="mt-3"></div>
+          </form>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card p-3 shadow-sm mb-4">
+            <h5 data-translate="tips_title">Tips for better assistance</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> <span data-translate="tip1">Take close, focused photos of affected areas</span></li>
+              <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> <span data-translate="tip2">Record descriptions in your local language</span></li>
+              <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> <span data-translate="tip3">Include crop type and age if possible</span></li>
+              <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> <span data-translate="tip4">Mention weather conditions and soil type</span></li>
+            </ul>
+          </div>
+
+          <div class="card p-3 shadow-sm">
+            <h6 data-translate="past_queries">Your Recent Queries</h6>
+            <div id="pastQueries" class="list-group list-group-flush">
+              <div class="text-center py-3 text-muted" data-translate="no_queries">No past queries yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Government Subsidies & Schemes -->
+  <section id="subsidies" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="mb-3 text-center">Government Subsidies & Schemes</h2>
+      <p class="text-center mb-5 text-muted">Financial assistance and support programs for farmers</p>
+      
+      <div class="row g-4">
+        <!-- PM-KISAN -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0"><i class="fas fa-rupee-sign me-2"></i>PM-KISAN</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="text-success">₹6,000 per year</h6>
+              <p class="small mb-3">Direct income support to all farmer families</p>
+              <ul class="small">
+                <li>₹2000 in 3 equal installments</li>
+                <li>All landholding farmers eligible</li>
+                <li>Direct bank transfer</li>
+              </ul>
+              <a href="#" class="btn btn-outline-success btn-sm w-100" onclick="openSubsidyDetails('pmkisan'); return false;">Apply Now</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Crop Insurance -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-shield-alt me-2"></i>Crop Insurance (PMFBY)</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="text-primary">Premium: 1.5-2%</h6>
+              <p class="small mb-3">Protection against crop loss due to natural calamities</p>
+              <ul class="small">
+                <li>Covers all food & oilseed crops</li>
+                <li>Low premium rates</li>
+                <li>Quick claim settlement</li>
+              </ul>
+              <a href="#" class="btn btn-outline-primary btn-sm w-100" onclick="openSubsidyDetails('insurance'); return false;">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Kisan Credit Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header bg-info text-white">
+              <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Kisan Credit Card</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="text-info">Interest: 4% per annum</h6>
+              <p class="small mb-3">Easy credit for farming needs</p>
+              <ul class="small">
+                <li>Up to ₹3 lakh credit limit</li>
+                <li>Flexible repayment</li>
+                <li>Insurance coverage</li>
+              </ul>
+              <a href="#" class="btn btn-outline-info btn-sm w-100" onclick="openSubsidyDetails('kcc'); return false;">Apply Now</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Soil Health Card -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header bg-warning text-dark">
+              <h5 class="mb-0"><i class="fas fa-seedling me-2"></i>Soil Health Card</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="text-warning">Free of Cost</h6>
+              <p class="small mb-3">Know your soil health & nutrient status</p>
+              <ul class="small">
+                <li>Free soil testing</li>
+                <li>Crop-specific recommendations</li>
+                <li>Fertilizer optimization</li>
+              </ul>
+              <a href="#" class="btn btn-outline-warning btn-sm w-100" onclick="openSubsidyDetails('soilcard'); return false;">Get Card</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Equipment Subsidy -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header bg-danger text-white">
+              <h5 class="mb-0"><i class="fas fa-tractor me-2"></i>Equipment Subsidy</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="text-danger">40-50% Subsidy</h6>
+              <p class="small mb-3">Mechanization support for farmers</p>
+              <ul class="small">
+                <li>Tractors & implements</li>
+                <li>Drip irrigation systems</li>
+                <li>Storage facilities</li>
+              </ul>
+              <a href="#" class="btn btn-outline-danger btn-sm w-100" onclick="openSubsidyDetails('equipment'); return false;">View Details</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- MSP Support -->
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header bg-secondary text-white">
+              <h5 class="mb-0"><i class="fas fa-balance-scale me-2"></i>Minimum Support Price</h5>
+            </div>
+            <div class="card-body">
+              <h6 class="text-secondary">Guaranteed Price</h6>
+              <p class="small mb-3">Fair price guarantee for your produce</p>
+              <ul class="small">
+                <li>23 crops covered</li>
+                <li>Government procurement</li>
+                <li>Price stability</li>
+              </ul>
+              <a href="#" class="btn btn-outline-secondary btn-sm w-100" onclick="openSubsidyDetails('msp'); return false;">Check Prices</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-5">
+        <p class="text-muted">For more information, visit your nearest <strong>Krishi Vigyan Kendra</strong> or contact the Agriculture Department</p>
+        <button class="btn btn-success" onclick="if(typeof aiChatbot !== 'undefined') aiChatbot.toggleChat();">
+          <i class="fas fa-comments me-2"></i>Ask AI Assistant about Schemes
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+  function openSubsidyDetails(scheme) {
+    const schemes = {
+      'pmkisan': 'PM-KISAN provides ₹6000/year direct income support. Visit pmkisan.gov.in or your nearest bank with Aadhaar card and land documents.',
+      'insurance': 'PMFBY insures crops against natural disasters. Premium: Kharif 2%, Rabi 1.5%, Horticulture 5%. Contact your bank or insurance company.',
+      'kcc': 'Kisan Credit Card gives flexible credit up to ₹3 lakh at 4% interest. Apply at any bank with land documents and Aadhaar.',
+      'soilcard': 'Soil Health Card provides free soil testing. Register at soilhealth.dac.gov.in or visit nearest Soil Testing Lab.',
+      'equipment': 'Equipment subsidy of 40-50% available on tractors, implements, irrigation systems. Apply through Agriculture Department.',
+      'msp': 'MSP ensures minimum price for 23 crops. Check current prices at agricoop.gov.in or sell at government procurement centers.'
+    };
+    
+    alert(schemes[scheme] || 'Contact your local Agriculture Office for details.');
+  }
+  </script>
+
+  <!-- About -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2 data-translate="about_title">About FarmaSathi</h2>
+          <p data-translate="about_desc1">FarmaSathi bridges the gap between farmers and agricultural experts using AI technology. Our platform provides timely, region-specific advice to help farmers make informed decisions.</p>
+          <p data-translate="about_desc2">We understand that farmers face critical challenges related to pests, weather, inputs, and market trends. Our mission is to make expert advice accessible to every farmer, regardless of location or literacy level.</p>
+          <div class="mt-4">
+            <div class="d-flex mb-2">
+              <i class="fas fa-check text-success me-2 mt-1"></i>
+              <span data-translate="feature1">Multilingual support for diverse regions</span>
+            </div>
+            <div class="d-flex mb-2">
+              <i class="fas fa-check text-success me-2 mt-1"></i>
+              <span data-translate="feature2">Voice-based interface for easy access</span>
+            </div>
+            <div class="d-flex mb-2">
+              <i class="fas fa-check text-success me-2 mt-1"></i>
+              <span data-translate="feature3">24-48 hour response guarantee</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+               alt="Farmers discussing" class="img-fluid rounded shadow">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4" data-translate="contact_title">Contact Support</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+          <p class="lead" data-translate="contact_desc">Need immediate assistance? Reach out to our support team</p>
+          <div class="row mt-4">
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                  <h5 data-translate="contact_phone">Phone Support</h5>
+                  <p class="mb-0">+91-1800-123-4567</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                  <h5 data-translate="contact_email">Email Support</h5>
+                  <p class="mb-0">support@agriassist.org</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+                  <h5 data-translate="contact_office">Regional Offices</h5>
+                  <p class="mb-0" data-translate="contact_locations">Across 15 states in India</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-4 bg-dark text-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h5>🌱 FarmaSathi</h5>
+          <p class="mb-0" data-translate="footer_tagline">Empowering farmers with AI-driven agricultural advisory</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <small>© 2025 FarmaSathi. <span data-translate="footer_rights">All rights reserved</span>.</small>
+          <div class="mt-2">
+            <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-light"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Enhanced Auth Modal -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Join FarmaSathi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0">
+          <!-- Farmer Login -->
+          <div class="col-md-6">
+            <div class="p-4 h-100">
+              <h6 class="text-center mb-3">
+                <i class="fas fa-user me-2"></i>Farmer Login
+              </h6>
+              <form id="farmerAuthForm">
+                <div class="mb-3">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="farmerName" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="farmerPhone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Location</label>
+                  <input type="text" class="form-control" id="farmerLocation" placeholder="Village, District">
+                </div>
+                <button type="submit" class="btn btn-success w-100">
+                  <i class="fas fa-seedling me-2"></i>Continue as Farmer
+                </button>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Officer Login -->
+          <div class="col-md-6 bg-light">
+            <div class="p-4 h-100">
+              <h6 class="text-center mb-3">
+                <i class="fas fa-user-shield me-2"></i>Officer Login
+              </h6>
+              <form id="officerAuthForm">
+                <div class="mb-3">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="officerName" placeholder="Dr. Full Name" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Department</label>
+                  <select class="form-select" id="officerDepartment">
+                    <option value="Agricultural Extension">Agricultural Extension</option>
+                    <option value="Plant Pathology">Plant Pathology</option>
+                    <option value="Soil Science">Soil Science</option>
+                    <option value="Pest Management">Pest Management</option>
+                    <option value="Horticulture">Horticulture</option>
+                    <option value="Meteorology">Meteorology</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Verification Code</label>
+                  <input type="password" class="form-control" id="officerCode" placeholder="Enter officer code" required>
+                  <div class="form-text">
+                    Contact admin for verification codes
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                  <i class="fas fa-sign-in-alt me-2"></i>Login as Officer
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <small class="text-muted">
+          By continuing, you agree to our Terms of Service and Privacy Policy
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Bootstrap + dependencies JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- API Configuration (MUST BE FIRST) -->
+  <script src="api-config.js"></script>
+  
+  <!-- Main JS -->
+  <script src="translation.js"></script>
+  <script src="ai-simulation.js"></script>
+  <script src="auth.js"></script>
+  <script src="voice-recorder.js"></script>
+  <script src="notifications.js"></script>
+  <script src="ai-chatbot.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

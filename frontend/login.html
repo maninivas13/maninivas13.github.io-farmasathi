@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FarmaSathi</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/a2d9f9f8c1.js" crossorigin="anonymous"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 2rem auto;
+        }
+        
+        .login-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .login-body {
+            padding: 2rem;
+        }
+        
+        .farmer-section {
+            border-right: 1px solid #dee2e6;
+        }
+        
+        .role-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .farmer-section {
+                border-right: none;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 2rem;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container login-container">
+        <div class="card login-card">
+            <div class="login-header">
+                <h1 class="mb-2">🌱 FarmaSathi</h1>
+                <p class="mb-0">AI-Powered Agricultural Assistance Platform</p>
+            </div>
+            
+            <div class="login-body">
+                <div class="row g-0">
+                    <!-- Registration Section -->
+                    <div class="col-md-6 farmer-section">
+                        <div class="p-4">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-user-plus role-icon text-success"></i>
+                                <h4>Register New Account</h4>
+                                <p class="text-muted">Create an account to get started</p>
+                            </div>
+                            
+                            <form id="registerForm">
+                                <div class="mb-3">
+                                    <label for="registerName" class="form-label">
+                                        <i class="fas fa-user me-2"></i>Full Name
+                                    </label>
+                                    <input type="text" class="form-control" id="registerName" 
+                                           placeholder="Enter your name" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="registerPhone" class="form-label">
+                                        <i class="fas fa-phone me-2"></i>Phone Number
+                                    </label>
+                                    <input type="tel" class="form-control" id="registerPhone" 
+                                           placeholder="10-digit mobile number" 
+                                           pattern="[0-9]{10}" required>
+                                    <div class="form-text">Your contact number for updates</div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="registerLocation" class="form-label">
+                                        <i class="fas fa-map-marker-alt me-2"></i>Location
+                                    </label>
+                                    <input type="text" class="form-control" id="registerLocation" 
+                                           placeholder="Village, District, State">
+                                </div>
+                                
+                                <button type="submit" class="btn btn-success w-100 btn-lg">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
+                                </button>
+                            </form>
+                            
+                            <div id="registerMsg" class="mt-3"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Login Section -->
+                    <div class="col-md-6">
+                        <div class="p-4">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-sign-in-alt role-icon text-primary"></i>
+                                <h4>Login to Account</h4>
+                                <p class="text-muted">Access your existing account</p>
+                            </div>
+                            
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="loginPhone" class="form-label">
+                                        <i class="fas fa-phone me-2"></i>Phone Number
+                                    </label>
+                                    <input type="tel" class="form-control" id="loginPhone" 
+                                           placeholder="Enter your registered phone number" 
+                                           pattern="[0-9]{10}" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">
+                                        <i class="fas fa-lock me-2"></i>Password
+                                    </label>
+                                    <input type="password" class="form-control" id="loginPassword" 
+                                           placeholder="Enter your password" required>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary w-100 btn-lg">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </button>
+                            </form>
+                            
+                            <div id="loginMsg" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4 pt-4 border-top">
+                    <small class="text-muted">
+                        By continuing, you agree to our Terms of Service and Privacy Policy
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- API Configuration -->
+    <script src="api-config.js"></script>
+    
+    <!-- Auth JS -->
+    <script src="auth.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const registerForm = document.getElementById('registerForm');
+            const loginForm = document.getElementById('loginForm');
+            const registerMsg = document.getElementById('registerMsg');
+            const loginMsg = document.getElementById('loginMsg');
+            
+            // Registration
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('registerName').value.trim();
+                const phone = document.getElementById('registerPhone').value.trim();
+                const location = document.getElementById('registerLocation').value.trim();
+                
+                if (!phone || !/^\d{10}$/.test(phone)) {
+                    registerMsg.innerHTML = '<div class="alert alert-danger">Please enter a valid 10-digit phone number</div>';
+                    return;
+                }
+                
+                // Show loading
+                registerMsg.innerHTML = '<div class="alert alert-info"><i class="fas fa-spinner fa-spin"></i> Creating account...</div>';
+                
+                try {
+                    const user = await auth.registerFarmer(name, phone, location);
+                    
+                    registerMsg.innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i> Welcome, ${user.name}!
+                            <p class="mb-0 small">Redirecting to farmer portal...</p>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                    
+                } catch (error) {
+                    registerMsg.innerHTML = `<div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> ${error.message}</div>`;
+                }
+            });
+            
+            // Login
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const phone = document.getElementById('loginPhone').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+                
+                if (!phone || !/^\d{10}$/.test(phone)) {
+                    loginMsg.innerHTML = '<div class="alert alert-danger">Please enter a valid 10-digit phone number</div>';
+                    return;
+                }
+                
+                if (!password) {
+                    loginMsg.innerHTML = '<div class="alert alert-danger">Please enter your password</div>';
+                    return;
+                }
+                
+                // Show loading
+                loginMsg.innerHTML = '<div class="alert alert-info"><i class="fas fa-spinner fa-spin"></i> Authenticating...</div>';
+                
+                try {
+                    // For simplicity, we'll treat this as farmer login
+                    // In a real app, you might want separate endpoints
+                    const response = await apiClient.post(API_CONFIG.ENDPOINTS.LOGIN, {
+                        phone: phone,
+                        password: password,
+                        role: 'farmer'
+                    }, { auth: false });
+                    
+                    // Store token and user data
+                    apiClient.setToken(response.access_token);
+                    auth.currentUser = response.user;
+                    localStorage.setItem('agri_user', JSON.stringify(response.user));
+                    auth.updateUI();
+                    
+                    loginMsg.innerHTML = `
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i> Welcome back, ${response.user.name}!
+                            <p class="mb-0 small">Accessing dashboard...</p>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                    
+                } catch (error) {
+                    loginMsg.innerHTML = `<div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> ${error.message || 'Login failed. Please check your credentials.'}</div>`;
+                }
+            });
+            
+            // Check if already logged in
+            if (localStorage.getItem('agri_token')) {
+                auth.verifyToken().then(user => {
+                    console.log('User already logged in:', user.name);
+                    registerMsg.innerHTML = `
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> Already logged in as ${user.name}
+                            <a href="${user.role === 'farmer' ? 'index.html' : 'dashboard.html'}" class="btn btn-sm btn-primary ms-2">Go to Dashboard</a>
+                        </div>
+                    `;
+                }).catch(() => {
+                    // Token invalid, user will login normally
+                });
+            }
+        });
+    </script>
+</body>
+</html>
